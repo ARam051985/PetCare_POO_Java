@@ -24,7 +24,12 @@ public class Main {
 
         do {
             menu();
-            opcion = scanner.nextInt();
+            try {
+                opcion = scanner.nextInt();
+            } catch(Exception excepcion) {
+                System.out.println("Por favor, ingresa un número válido");
+            }
+            scanner.nextLine();
 
             switch(opcion) {
                 case 1:
