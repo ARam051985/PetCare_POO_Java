@@ -1,6 +1,6 @@
 package modelo.mascotas;
 
-public class AveExotica extends Mascota implements EmitirSonido {
+public class AveExotica extends Mascota {
     private double longitudAlas;
 
     public AveExotica(String nombre, int edad, double peso, String dueno, double longitudAlas) {

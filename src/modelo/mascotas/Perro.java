@@ -1,6 +1,6 @@
 package modelo.mascotas;
 
-public class Perro extends Mascota implements EmitirSonido {
+public class Perro extends Mascota {
     private String raza;
     private int nivelEnergia;
 

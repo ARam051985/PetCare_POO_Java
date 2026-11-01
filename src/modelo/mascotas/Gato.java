@@ -1,6 +1,6 @@
 package modelo.mascotas;
 
-public class Gato extends Mascota implements EmitirSonido {
+public class Gato extends Mascota {
     private boolean esDomestico;
 
     public Gato(String nombre, int edad, double peso, String dueno, boolean esDomestico) {

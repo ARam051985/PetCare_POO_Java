@@ -32,4 +32,6 @@ public abstract class Mascota {
         }
         this.dueno = dueno;
     }
+
+    public abstract void emitirSonido();
 }
