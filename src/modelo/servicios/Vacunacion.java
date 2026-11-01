@@ -1,7 +1,6 @@
 package modelo.servicios;
 
-public class Vacunacion implements Servicio {
-    private double tarifaBase;
+public class Vacunacion extends ConsultaGeneral implements Servicio {
     private double costoVacuna;
 
     public void setTarifaBase(double tarifaBase) {
@@ -13,6 +12,6 @@ public class Vacunacion implements Servicio {
     }
 
     public double calcularCosto() {
-        return tarifaBase + costoVacuna;
+        return ConsultaGeneral.tarifaBase + costoVacuna;
     }
 }

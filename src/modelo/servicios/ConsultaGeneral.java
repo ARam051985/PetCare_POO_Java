@@ -1,7 +1,7 @@
 package modelo.servicios;
 
-public class ConsultaGeneral implements Servicio {
-    protected double tarifaBase;
+public abstract class ConsultaGeneral implements Servicio {
+    protected static double tarifaBase;
 
     public void setTarifaBase(double tarifaBase) {
         if(tarifaBase <= 0) {
