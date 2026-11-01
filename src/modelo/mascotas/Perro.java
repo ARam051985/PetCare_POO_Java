@@ -1,0 +1,32 @@
+package modelo.mascotas;
+
+public class Perro extends Mascota implements EmitirSonido {
+    private String raza;
+    private int nivelEnergia;
+
+    public Perro(String nombre, int edad, double peso, String dueno, String raza, int nivelEnergia) {
+        super(nombre, edad, peso, dueno);
+        setRaza(raza);
+        setNivelEnergia(nivelEnergia);
+    }
+
+    public String getRaza() {return this.raza;}
+    public int getNivelEnergia() {return  this.nivelEnergia;}
+
+    public void setRaza(String raza) {
+        this.raza = raza;
+    }
+
+    public void setNivelEnergia(int nivelEnergia) {
+        if(nivelEnergia <= 0 || nivelEnergia > 100) {
+            System.out.println("Nivel de energía no válido");
+            return;
+        }
+        this.nivelEnergia = nivelEnergia;
+    }
+
+    @Override
+    public void emitirSonido() {
+        System.out.println("El perro está ladrando");
+    }
+}
