@@ -11,8 +11,7 @@ public class Consultorio {
 
     public void setNumero(int numero) {
         if(numero <= 0) {
-            System.out.println("Número de consultorio no válido");
-            return;
+            throw new IllegalArgumentException("Número de consultorio no válido");
         }
         this.numero = numero;
     }

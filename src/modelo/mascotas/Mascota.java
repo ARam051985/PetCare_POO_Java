@@ -7,7 +7,10 @@ public abstract class Mascota {
     private String dueno;
 
     public Mascota(String nombre, int edad, double peso, String dueno) {
-        setDatosMascota(nombre, edad, peso, dueno);
+        setNombre(nombre);
+        setEdad(edad);
+        setPeso(peso);
+        setDueno(dueno);
     }
 
     public String getDatosMascota() {
@@ -17,18 +20,30 @@ public abstract class Mascota {
                 "Dueño: " + dueno + ".\n";
     }
 
-    public void setDatosMascota(String nombre, int edad, double peso, String dueno) {
-        this.nombre = nombre;
-        if(edad > 0) {
-            this.edad = edad;
-        } else {
-            System.out.println("Edad de la mascota no válida");
+    public void setNombre(String nombre) {
+        if(nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("Nombre de mascota obligatorio");
         }
+        this.nombre = nombre;
+    }
 
-        if(peso > 0) {
-            this.peso = peso;
-        } else {
-            System.out.println("Peso de la mascota no válida");
+    public void setEdad(int edad) {
+        if(edad <= 0) {
+            throw new IllegalArgumentException("Edad no válida");
+        }
+        this.edad = edad;
+    }
+
+    public void setPeso(double peso) {
+        if(peso <= 0.0) {
+            throw new IllegalArgumentException("Peso no válido");
+        }
+        this.peso = peso;
+    }
+
+    public void setDueno(String dueno) {
+        if(dueno == null || dueno.isBlank()) {
+            throw new IllegalArgumentException("Dueño obligatorio");
         }
         this.dueno = dueno;
     }

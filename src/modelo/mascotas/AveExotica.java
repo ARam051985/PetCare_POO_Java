@@ -12,8 +12,7 @@ public class AveExotica extends Mascota {
 
     public void setLongitudAlas(double longitudAlas) {
         if(longitudAlas <= 0) {
-            System.out.println("Longitud de alas no válida");
-            return;
+            throw new IllegalArgumentException("Longitud de alas no válida");
         }
         this.longitudAlas = longitudAlas;
     }

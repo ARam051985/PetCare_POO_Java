@@ -19,8 +19,7 @@ public class Perro extends Mascota {
 
     public void setNivelEnergia(int nivelEnergia) {
         if(nivelEnergia <= 0 || nivelEnergia > 100) {
-            System.out.println("Nivel de energía no válido");
-            return;
+            throw new IllegalArgumentException("Nivel de energía no válido");
         }
         this.nivelEnergia = nivelEnergia;
     }

@@ -8,6 +8,9 @@ public class Vacunacion extends ConsultaGeneral implements Servicio {
     }
 
     public void setCostoVacuna(double costoVacuna) {
+        if(costoVacuna <= 0.0) {
+            throw new IllegalArgumentException("No puedes poner un costo de vacuna negativo");
+        }
         this.costoVacuna = costoVacuna;
     }
 

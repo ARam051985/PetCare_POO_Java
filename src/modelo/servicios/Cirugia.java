@@ -15,16 +15,14 @@ public class Cirugia implements Servicio {
 
     public void setNivelComplejidad(int nivelComplejidad) {
         if(nivelComplejidad <= 0) {
-            System.out.println("Nivel de complejidad no válido");
-            return;
+            throw new IllegalArgumentException("Nivel de complejidad no válido");
         }
         this.nivelComplejidad = nivelComplejidad;
     }
 
     public void setHorasQuirofano(int horasQuirofano) {
         if(horasQuirofano <= 0) {
-            System.out.println("Horas de quirófano no válido");
-            return;
+            throw new IllegalArgumentException("Horas de quirófano no válido");
         }
         this.horasQuirofano = horasQuirofano;
     }
