@@ -19,6 +19,6 @@ public class AveExotica extends Mascota {
 
     @Override
     public void emitirSonido() {
-        System.out.println("El ave está cantando");
+        System.out.println("El ave está cantando\n");
     }
 }

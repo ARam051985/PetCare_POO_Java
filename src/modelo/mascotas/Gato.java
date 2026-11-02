@@ -16,6 +16,6 @@ public class Gato extends Mascota {
 
     @Override
     public void emitirSonido() {
-        System.out.println("El gato está maullando");
+        System.out.println("El gato está maullando\n");
     }
 }

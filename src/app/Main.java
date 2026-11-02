@@ -103,7 +103,7 @@ public class Main {
                     }
                     break;
                 case 3:
-                    System.out.print("Ingrese la longitud de alas del ave en centímetros: ");
+                    System.out.print("Ingrese la longitud de alas del ave (en centímetros): ");
                     longitudAlas = scanner.nextDouble();
                     break;
                 default:
@@ -356,6 +356,16 @@ public class Main {
         System.out.println("Costo total: $" + costoTotal);
     }
 
+    public static void listarMascotasSonido() {
+        System.out.println("Lista de mascotas y su sonido");
+        for(int i = 0; i < listaMascotas.size(); i++) {
+            Mascota mascota = listaMascotas.get(i);
+
+            System.out.print("Mascota " + (i + 1) + ". "+ mascota.getDatosMascota());
+            mascota.emitirSonido();
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Consultorio consultorio1 = new Consultorio(1);
@@ -410,7 +420,11 @@ public class Main {
                     System.out.println("6. Consultar el historial clínico de una mascota.");
                     break;
                 case 7:
-                    System.out.println("7. Listar todas las mascotas y su sonido.");
+                    if(listaMascotas.isEmpty()) {
+                        System.out.println("Registre una mascota para utilizar esta opción");
+                    } else {
+                        listarMascotasSonido();
+                    }
                     break;
                 case 8:
                     System.out.println("8. Ver el total cobrado por veterinario.");

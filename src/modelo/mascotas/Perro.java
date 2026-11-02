@@ -26,6 +26,6 @@ public class Perro extends Mascota {
 
     @Override
     public void emitirSonido() {
-        System.out.println("El perro está ladrando");
+        System.out.println("El perro está ladrando\n");
     }
 }
