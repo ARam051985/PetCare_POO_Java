@@ -94,7 +94,6 @@ public class Main {
                             scanner.nextLine();
                         }
                     } while(opcionEsDomestico < 1 || opcionEsDomestico > 2);
-                    scanner.nextLine();
 
                     if(opcionEsDomestico == 1) {
                         esDomestico = true;
@@ -181,7 +180,7 @@ public class Main {
         Mascota mascotaSeleccionada = listaMascotas.get(indiceMascota);
 
         System.out.println("\nLista de veterinarios");
-        for (int i = 0; i < listaVeterinarios.size(); i++) {
+        for(int i = 0; i < listaVeterinarios.size(); i++) {
             System.out.println((i + 1) + ". " + listaVeterinarios.get(i).getDatosPersonales());
         }
         System.out.print("Seleccione el número del veterinario: ");
@@ -189,7 +188,7 @@ public class Main {
         Veterinario veterinarioSeleccionado = listaVeterinarios.get(indiceVeterinario);
 
         System.out.println("\nLista de consultorios");
-        for (int i = 0; i < listaConsultorios.size(); i++) {
+        for(int i = 0; i < listaConsultorios.size(); i++) {
             System.out.println((i + 1) + ". Consultorio #: " + listaConsultorios.get(i).getNumero());
         }
         System.out.print("Seleccione el número del consultorio: ");
@@ -300,10 +299,10 @@ public class Main {
         scanner.nextLine();
 
         try {
-            if (accion == 1) {
+            if(accion == 1) {
                 citaSeleccionada.setEstadoCita(EstadoCita.ATENDIDA);
                 System.out.println("Cita atendida con éxito");
-            } else if (accion == 2) {
+            } else if(accion == 2) {
                 citaSeleccionada.setEstadoCita(EstadoCita.CANCELADA);
                 System.out.println("Cita cancelada con éxito");
             } else {
@@ -354,6 +353,46 @@ public class Main {
         System.out.println("Datos de la mascota:\n" + citaSeleccionada.getMascota().getDatosMascota());
         System.out.println("Datos del veterinario:\n" + citaSeleccionada.getVeterinario().getDatosPersonales());
         System.out.println("Costo total: $" + costoTotal);
+    }
+
+    public static void consultarHistorialMascota() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Lista de mascotas");
+        for(int i = 0; i < listaMascotas.size(); i++) {
+            System.out.println((i + 1) + ". " + listaMascotas.get(i).getDatosMascota());
+        }
+        System.out.print("Ingrese el número de la mascota: ");
+        int indiceMascota = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if(indiceMascota < 0 || indiceMascota >= listaMascotas.size()) {
+            System.out.println("Número de mascota no válido");
+            return;
+        }
+
+        Mascota mascotaElegida = listaMascotas.get(indiceMascota);
+
+        List<Cita> historialMascota = new ArrayList<>();
+        for(Cita cita : listaCitas) {
+            if(cita.getMascota().equals(mascotaElegida)) {
+                historialMascota.add(cita);
+            }
+        }
+
+        if(historialMascota.isEmpty()) {
+            System.out.println("La mascota no tiene historial de citas");
+            return;
+        }
+
+        System.out.println("Historial clínico de la mascota");
+        for(int i = 0; i < historialMascota.size(); i++) {
+            Cita citaActual = historialMascota.get(i);
+            System.out.println((i + 1) + ". Fecha y Hora: " + citaActual.getFechaHora());
+            System.out.println("Estado de la cita: " + citaActual.getEstadoCita());
+            System.out.println("Veterinario: " + citaActual.getVeterinario().getDatosPersonales());
+            System.out.println("Consultorio: " + citaActual.getConsultorio().getNumero());
+        }
     }
 
     public static void listarMascotasSonido() {
@@ -417,7 +456,11 @@ public class Main {
                     }
                     break;
                 case 6:
-                    System.out.println("6. Consultar el historial clínico de una mascota.");
+                    if(listaMascotas.isEmpty()) {
+                        System.out.println("Registre una mascota para utilizar esta opción");
+                    } else {
+                        consultarHistorialMascota();
+                    }
                     break;
                 case 7:
                     if(listaMascotas.isEmpty()) {
