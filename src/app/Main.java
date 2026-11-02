@@ -1,12 +1,13 @@
 package app;
 
-import modelo.mascotas.Mascota;
-import modelo.mascotas.Perro;
-import modelo.mascotas.Gato;
-import modelo.mascotas.AveExotica;
+import modelo.clinica.Cita;
+import modelo.clinica.Consultorio;
+import modelo.mascotas.*;
 import modelo.personas.Dueno;
 import modelo.personas.Veterinario;
+import modelo.servicios.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ public class Main {
     static List<Dueno> listaDuenos = new ArrayList<>();
     static List<Mascota> listaMascotas = new ArrayList<>();
     static List<Veterinario> listaVeterinarios = new ArrayList<>();
+    static List<Consultorio> listaConsultorios = new ArrayList<>();
+    static List<Cita> listaCitas = new ArrayList<>();
 
     public static void menu() {
         System.out.println("\n========== Clínica Veterinaria \"PetCare\" ==========");
@@ -165,8 +168,102 @@ public class Main {
         listaVeterinarios.add(veterinario);
     }
 
+    public static void agendarCita() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nLista de mascotas");
+        for(int i = 0; i < listaMascotas.size(); i++) {
+            System.out.println((i + 1) + ". " + listaMascotas.get(i).getDatosMascota());
+        }
+        System.out.print("Seleccione el número de la mascota: ");
+        int indiceMascota = scanner.nextInt() - 1;
+        Mascota mascotaSeleccionada = listaMascotas.get(indiceMascota);
+
+        System.out.println("\nLista de veterinarios");
+        for (int i = 0; i < listaVeterinarios.size(); i++) {
+            System.out.println((i + 1) + ". " + listaVeterinarios.get(i).getDatosPersonales());
+        }
+        System.out.print("Seleccione el número del veterinario: ");
+        int indiceVeterinario = scanner.nextInt() - 1;
+        Veterinario veterinarioSeleccionado = listaVeterinarios.get(indiceVeterinario);
+
+        System.out.println("\nLista de consultorios");
+        for (int i = 0; i < listaConsultorios.size(); i++) {
+            System.out.println((i + 1) + ". Consultorio #: " + listaConsultorios.get(i).getNumero());
+        }
+        System.out.print("Seleccione el número del consultorio: ");
+        int indiceConsultorio = scanner.nextInt() - 1;
+        Consultorio consultorioSeleccionado = listaConsultorios.get(indiceConsultorio);
+        scanner.nextLine();
+
+        System.out.println("\nServicios");
+        System.out.println("1. Consulta General");
+        System.out.println("2. Vacunación");
+        System.out.println("3. Cirugía");
+        System.out.print("Seleccione una opción: ");
+        int tipoServicio = scanner.nextInt();
+        scanner.nextLine();
+
+        Servicio servicioSeleccionado = null;
+        if(tipoServicio == 1) {
+            ConsultaEstandar consultaEstandar = new ConsultaEstandar();
+            servicioSeleccionado = consultaEstandar;
+            System.out.println("Se ha seleccionado Consulta General (Tarifa base aplicada).");
+        } else if(tipoServicio == 2) {
+            System.out.print("Ingrese el costo de la vacuna: ");
+            double costoVacuna = scanner.nextDouble();
+            scanner.nextLine();
+
+            Vacunacion vacunacion = new Vacunacion();
+            vacunacion.setCostoVacuna(costoVacuna);
+            servicioSeleccionado = vacunacion;
+        } else if(tipoServicio == 3) {
+            System.out.print("Ingrese la tarifa por hora del quirófano:");
+            double tarifaPorHora = scanner.nextDouble();
+            System.out.print("Ingrese el nivel de complejidad (del 1 al 5): ");
+            int complejidad = scanner.nextInt();
+            System.out.print("Ingrese las horas de quirófano: ");
+            int horas = scanner.nextInt();
+            scanner.nextLine();
+
+            Cirugia cirugia = new Cirugia();
+            cirugia.setTarifaPorHora(tarifaPorHora);
+            cirugia.setNivelComplejidad(complejidad);
+            cirugia.setHorasQuirofano(horas);
+            servicioSeleccionado = cirugia;
+        }
+
+        System.out.print("Ingrese el año de la cita: ");
+        int anio = scanner.nextInt();
+        System.out.print("Ingrese el mes (del 1 al 12): ");
+        int mes = scanner.nextInt();
+        System.out.print("Ingrese el día (del 1 al 31): ");
+        int dia = scanner.nextInt();
+        System.out.print("Ingrese la hora (0-23): ");
+        int hora = scanner.nextInt();
+        System.out.print("Ingrese los minutos (0-59): ");
+        int minuto = scanner.nextInt();
+        scanner.nextLine();
+
+        LocalDateTime fechaHoraIngresada = LocalDateTime.of(anio, mes, dia, hora, minuto);
+
+        Cita nuevaCita = new Cita(mascotaSeleccionada,
+                veterinarioSeleccionado,
+                consultorioSeleccionado,
+                servicioSeleccionado,
+                fechaHoraIngresada,
+                modelo.clinica.EstadoCita.PROGRAMADA);
+        listaCitas.add(nuevaCita);
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        Consultorio consultorio1 = new Consultorio(1);
+        Consultorio consultorio2 = new Consultorio(2);
+        Consultorio consultorio3 = new Consultorio(3);
+        listaConsultorios.add(consultorio1);
+        listaConsultorios.add(consultorio2);
+        listaConsultorios.add(consultorio3);
         int opcion = 0;
 
         do {
@@ -188,7 +285,13 @@ public class Main {
                     System.out.println("Veterinario registrado con éxito");
                     break;
                 case 3:
-                    System.out.println("3. Agendar una cita.");
+                    if(listaMascotas.isEmpty() || listaVeterinarios.isEmpty()) {
+                        System.out.println("No hay mascotas ni veterinarios." +
+                                "\nRegístrelos para utilizar esta opción");
+                    } else {
+                        agendarCita();
+                        System.out.println("Cita agendada correctamente");
+                    }
                     break;
                 case 4:
                     System.out.println("4. Atender o cancelar una cita.");

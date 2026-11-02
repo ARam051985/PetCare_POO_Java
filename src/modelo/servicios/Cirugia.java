@@ -14,7 +14,7 @@ public class Cirugia implements Servicio {
     }
 
     public void setNivelComplejidad(int nivelComplejidad) {
-        if(nivelComplejidad <= 0) {
+        if(nivelComplejidad <= 0 || nivelComplejidad > 5) {
             throw new IllegalArgumentException("Nivel de complejidad no válido");
         }
         this.nivelComplejidad = nivelComplejidad;
