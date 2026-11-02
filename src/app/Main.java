@@ -277,7 +277,7 @@ public class Main {
             Cita cita = citasPorAtenderCancelar.get(i);
             System.out.println((i + 1) + ". Mascota: " + cita.getMascota().getDatosMascota() +
                     "Veterinario: " + cita.getVeterinario().getDatosPersonales() +
-                    "Fecha y hora de cita: " + cita.getFechaHora());
+                    "Fecha y hora de cita: " + cita.getFechaHora() + "\n");
         }
 
         System.out.print("Seleccione el número de la cita a modificar: ");
@@ -405,6 +405,40 @@ public class Main {
         }
     }
 
+    public static void totalCobradoVeterinario() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Lista de veterinarios");
+        for(int i = 0; i < listaVeterinarios.size(); i++) {
+            System.out.println((i + 1) + ". " + listaVeterinarios.get(i).getDatosPersonales());
+        }
+        System.out.print("Ingrese el número del veterinario: ");
+        int indiceVeterinario = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if(indiceVeterinario < 0 || indiceVeterinario >= listaVeterinarios.size()) {
+            System.out.println("Número de veterinario no válido.");
+            return;
+        }
+
+        Veterinario veterinarioSeleccionado = listaVeterinarios.get(indiceVeterinario);
+
+        double totalAcumulado = 0.0;
+        int contadorCitasAtendidas = 0;
+        for(Cita citaActual : listaCitas) {
+            if(citaActual.getVeterinario().equals(veterinarioSeleccionado) &&
+                    citaActual.getEstadoCita() == EstadoCita.ATENDIDA) {
+                totalAcumulado += citaActual.getServicio().calcularCosto();
+                contadorCitasAtendidas++;
+            }
+        }
+
+        System.out.println("Ingresos del veterinario consultado");
+        System.out.println("Veterinario:\n" + veterinarioSeleccionado.getDatosPersonales());
+        System.out.println("Número de citas atendidas: " + contadorCitasAtendidas);
+        System.out.println("Total cobrado: $" + totalAcumulado);
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Consultorio consultorio1 = new Consultorio(1);
@@ -470,7 +504,11 @@ public class Main {
                     }
                     break;
                 case 8:
-                    System.out.println("8. Ver el total cobrado por veterinario.");
+                    if(listaVeterinarios.isEmpty()) {
+                        System.out.println("Registra un veterinario para poder utilizar esta opción");
+                    } else {
+                        totalCobradoVeterinario();
+                    }
                     break;
                 case 9:
                     System.out.println("9. Dar de baja una mascota.");
