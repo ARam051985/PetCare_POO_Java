@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class Main {
     static List<Dueno> listaDuenos = new ArrayList<>();
     static List<Mascota> listaMascotas = new ArrayList<>();
+    static List<Veterinario> listaVeterinarios = new ArrayList<>();
 
     public static void menu() {
         System.out.println("\n========== Clínica Veterinaria \"PetCare\" ==========");
@@ -33,37 +34,27 @@ public class Main {
 
     public static void registrarDuenoMascota() {
         Scanner scanner = new Scanner(System.in);
-        String nombreDueno;
-        String apellidoDueno;
-        String telefonoDueno;
-        String correoDueno;
-        String direccionDueno;
         int opcion = 0;
-        String nombreMascota;
-        int edadMascota;
-        double pesoMascota = 0.0;
 
         String raza = "";
         int nivelEnergia = 0;
-
         boolean esDomestico = false;
-
         double longitudAlas = 0.0;
 
         System.out.print("Ingrese el nombre del dueño: ");
-        nombreDueno = scanner.nextLine();
+        String nombreDueno = scanner.nextLine();
 
         System.out.print("Ingrese el apellido del dueño: ");
-        apellidoDueno = scanner.nextLine();
+        String apellidoDueno = scanner.nextLine();
 
         System.out.print("Ingrese el número de teléfono del dueño: ");
-        telefonoDueno = scanner.nextLine();
+        String telefonoDueno = scanner.nextLine();
 
         System.out.print("Ingrese el correo del dueño: ");
-        correoDueno = scanner.nextLine();
+        String correoDueno = scanner.nextLine();
 
         System.out.print("Ingrese la dirección del dueño: ");
-        direccionDueno = scanner.nextLine();
+        String direccionDueno = scanner.nextLine();
 
         do {
             System.out.println("¿Cuál es la mascota?");
@@ -119,13 +110,13 @@ public class Main {
         scanner.nextLine();
 
         System.out.print("Ingrese el nombre de la mascota: ");
-        nombreMascota = scanner.nextLine();
+        String nombreMascota = scanner.nextLine();
 
         System.out.print("Ingrese la edad de la mascota: ");
-        edadMascota = scanner.nextInt();
+        int edadMascota = scanner.nextInt();
 
         System.out.print("Ingrese el peso de la mascota: ");
-        pesoMascota = scanner.nextDouble();
+        double pesoMascota = scanner.nextDouble();
 
         Dueno dueno = new Dueno(nombreDueno, apellidoDueno, telefonoDueno, correoDueno, direccionDueno);
         listaDuenos.add(dueno);
@@ -147,6 +138,33 @@ public class Main {
         }
     }
 
+    public static void registrarVeterinario() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el nombre del veterinario: ");
+        String nombre = scanner.nextLine();
+
+        System.out.print("Ingrese el apellido del veterinario: ");
+        String apellido = scanner.nextLine();
+
+        System.out.print("Ingrese el teléfono del veterinario: ");
+        String telefono = scanner.nextLine();
+
+        System.out.print("Ingrese el correo del veterinario: ");
+        String correo = scanner.nextLine();
+
+        System.out.print("Ingrese la cédula profesional: ");
+        String cedulaProfesional = scanner.nextLine();
+
+        System.out.print("Ingrese la especialidad: ");
+        String especialidad = scanner.nextLine();
+
+        Veterinario veterinario = new Veterinario(nombre, apellido, telefono, correo,
+                cedulaProfesional, especialidad);
+
+        listaVeterinarios.add(veterinario);
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
@@ -166,7 +184,8 @@ public class Main {
                     System.out.println("Dueño y mascota registrados con éxito");
                     break;
                 case 2:
-                    System.out.println("2. Registrar veterinario y asignarlo a la clínica.");
+                    registrarVeterinario();
+                    System.out.println("Veterinario registrado con éxito");
                     break;
                 case 3:
                     System.out.println("3. Agendar una cita.");
