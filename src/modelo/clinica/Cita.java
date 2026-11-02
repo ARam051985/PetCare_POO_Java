@@ -51,10 +51,10 @@ public class Cita {
     }
 
     public void setEstadoCita(EstadoCita estadoCita) {
-        if(estadoCita == EstadoCita.CANCELADA) {
+        if(this.estadoCita == EstadoCita.CANCELADA && estadoCita == EstadoCita.ATENDIDA) {
             throw new IllegalArgumentException("No puedes marcar una cita cancelada como atendida");
         }
-        if(estadoCita == EstadoCita.ATENDIDA) {
+        if(this.estadoCita == EstadoCita.ATENDIDA) {
             throw new IllegalArgumentException("Ya marcaste esta cita como atendida");
         }
         this.estadoCita = estadoCita;

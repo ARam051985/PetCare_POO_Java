@@ -2,6 +2,7 @@ package app;
 
 import modelo.clinica.Cita;
 import modelo.clinica.Consultorio;
+import modelo.clinica.EstadoCita;
 import modelo.mascotas.*;
 import modelo.personas.Dueno;
 import modelo.personas.Veterinario;
@@ -208,7 +209,7 @@ public class Main {
         if(tipoServicio == 1) {
             ConsultaEstandar consultaEstandar = new ConsultaEstandar();
             servicioSeleccionado = consultaEstandar;
-            System.out.println("Se ha seleccionado Consulta General (Tarifa base aplicada).");
+            System.out.println("Consulta general seleccionada.");
         } else if(tipoServicio == 2) {
             System.out.print("Ingrese el costo de la vacuna: ");
             double costoVacuna = scanner.nextDouble();
@@ -218,7 +219,7 @@ public class Main {
             vacunacion.setCostoVacuna(costoVacuna);
             servicioSeleccionado = vacunacion;
         } else if(tipoServicio == 3) {
-            System.out.print("Ingrese la tarifa por hora del quirófano:");
+            System.out.print("Ingrese la tarifa por hora del quirófano: ");
             double tarifaPorHora = scanner.nextDouble();
             System.out.print("Ingrese el nivel de complejidad (del 1 al 5): ");
             int complejidad = scanner.nextInt();
@@ -256,6 +257,63 @@ public class Main {
         listaCitas.add(nuevaCita);
     }
 
+    public static void atenderCancelarCita() {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Cita> citasProgramadas = new ArrayList<>();
+
+        for(Cita citaProgramada : listaCitas) {
+            if(citaProgramada.getEstadoCita() == EstadoCita.PROGRAMADA) {
+                citasProgramadas.add(citaProgramada);
+            }
+        }
+
+        if(citasProgramadas.isEmpty()) {
+            System.out.println("\nNo hay citas programadas para atender/cancelar");
+            return;
+        }
+
+        System.out.println("\nLista de citas programadas");
+        for(int i = 0; i < citasProgramadas.size(); i++) {
+            Cita cita = citasProgramadas.get(i);
+            System.out.println((i + 1) + ". Mascota: " + cita.getMascota().getDatosMascota() +
+                    "Veterinario: " + cita.getVeterinario().getDatosPersonales() +
+                    "Fecha y hora de cita: " + cita.getFechaHora());
+        }
+
+        System.out.print("Seleccione el número de la cita a modificar: ");
+        int indiceCita = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if(indiceCita < 0 || indiceCita >= citasProgramadas.size()) {
+            System.out.println("Número de cita no válida");
+            return;
+        }
+
+        Cita citaSeleccionada = citasProgramadas.get(indiceCita);
+
+        System.out.println("¿Qué acción quiere realizar?");
+        System.out.println("1. Atender cita");
+        System.out.println("2. Cancelar cita");
+        System.out.print("Seleccione una opción: ");
+        int accion = scanner.nextInt();
+        scanner.nextLine();
+
+        try {
+            if (accion == 1) {
+                citaSeleccionada.setEstadoCita(EstadoCita.ATENDIDA);
+                System.out.println("Cita atendida con éxito");
+            } else if (accion == 2) {
+                citaSeleccionada.setEstadoCita(EstadoCita.CANCELADA);
+                System.out.println("Cita cancelada con éxito");
+            } else {
+                System.out.println("Opción no válida.");
+            }
+        } catch (IllegalArgumentException excepcion) {
+            System.out.println("Regla de negocio violada: " + excepcion.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Consultorio consultorio1 = new Consultorio(1);
@@ -286,15 +344,18 @@ public class Main {
                     break;
                 case 3:
                     if(listaMascotas.isEmpty() || listaVeterinarios.isEmpty()) {
-                        System.out.println("No hay mascotas ni veterinarios." +
-                                "\nRegístrelos para utilizar esta opción");
+                        System.out.println("Registre una mascota y un veterinario para utilizar esta opción");
                     } else {
                         agendarCita();
                         System.out.println("Cita agendada correctamente");
                     }
                     break;
                 case 4:
-                    System.out.println("4. Atender o cancelar una cita.");
+                    if(listaCitas.isEmpty()) {
+                        System.out.println("Registre una cita para utilizar esta opción");
+                    } else {
+                        atenderCancelarCita();
+                    }
                     break;
                 case 5:
                     System.out.println("5. Generar el comprobante de una cita atendida.");
