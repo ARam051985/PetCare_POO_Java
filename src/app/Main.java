@@ -260,22 +260,22 @@ public class Main {
     public static void atenderCancelarCita() {
         Scanner scanner = new Scanner(System.in);
 
-        List<Cita> citasProgramadas = new ArrayList<>();
+        List<Cita> citasPorAtenderCancelar = new ArrayList<>();
 
-        for(Cita citaProgramada : listaCitas) {
-            if(citaProgramada.getEstadoCita() == EstadoCita.PROGRAMADA) {
-                citasProgramadas.add(citaProgramada);
+        for(Cita cita : listaCitas) {
+            if(cita.getEstadoCita() != EstadoCita.ATENDIDA) {
+                citasPorAtenderCancelar.add(cita);
             }
         }
 
-        if(citasProgramadas.isEmpty()) {
+        if(citasPorAtenderCancelar.isEmpty()) {
             System.out.println("\nNo hay citas programadas para atender/cancelar");
             return;
         }
 
-        System.out.println("\nLista de citas programadas");
-        for(int i = 0; i < citasProgramadas.size(); i++) {
-            Cita cita = citasProgramadas.get(i);
+        System.out.println("\nLista de citas para atender/cancelar");
+        for(int i = 0; i < citasPorAtenderCancelar.size(); i++) {
+            Cita cita = citasPorAtenderCancelar.get(i);
             System.out.println((i + 1) + ". Mascota: " + cita.getMascota().getDatosMascota() +
                     "Veterinario: " + cita.getVeterinario().getDatosPersonales() +
                     "Fecha y hora de cita: " + cita.getFechaHora());
@@ -285,12 +285,12 @@ public class Main {
         int indiceCita = scanner.nextInt() - 1;
         scanner.nextLine();
 
-        if(indiceCita < 0 || indiceCita >= citasProgramadas.size()) {
+        if(indiceCita < 0 || indiceCita >= citasPorAtenderCancelar.size()) {
             System.out.println("Número de cita no válida");
             return;
         }
 
-        Cita citaSeleccionada = citasProgramadas.get(indiceCita);
+        Cita citaSeleccionada = citasPorAtenderCancelar.get(indiceCita);
 
         System.out.println("¿Qué acción quiere realizar?");
         System.out.println("1. Atender cita");
@@ -310,7 +310,7 @@ public class Main {
                 System.out.println("Opción no válida.");
             }
         } catch (IllegalArgumentException excepcion) {
-            System.out.println("Regla de negocio violada: " + excepcion.getMessage());
+            System.out.println(excepcion.getMessage());
         }
     }
 
