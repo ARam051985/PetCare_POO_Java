@@ -78,7 +78,7 @@ public class Main {
                     System.out.print("Ingress la raza del perro: ");
                     raza = scanner.nextLine();
 
-                    System.out.print("Ingress el nivel de energía del perro: ");
+                    System.out.print("Ingress el nivel de energía del perro (del 1 al 100): ");
                     nivelEnergia = scanner.nextInt();
                     break;
                 case 2:
@@ -103,7 +103,7 @@ public class Main {
                     }
                     break;
                 case 3:
-                    System.out.print("Ingrese la longitud de alas del ave: ");
+                    System.out.print("Ingrese la longitud de alas del ave en centímetros: ");
                     longitudAlas = scanner.nextDouble();
                     break;
                 default:
@@ -116,10 +116,10 @@ public class Main {
         System.out.print("Ingrese el nombre de la mascota: ");
         String nombreMascota = scanner.nextLine();
 
-        System.out.print("Ingrese la edad de la mascota: ");
+        System.out.print("Ingrese la edad de la mascota (en años): ");
         int edadMascota = scanner.nextInt();
 
-        System.out.print("Ingrese el peso de la mascota: ");
+        System.out.print("Ingrese el peso de la mascota (en kilogramos): ");
         double pesoMascota = scanner.nextDouble();
 
         Dueno dueno = new Dueno(nombreDueno, apellidoDueno, telefonoDueno, correoDueno, direccionDueno);
@@ -314,6 +314,48 @@ public class Main {
         }
     }
 
+    public static void generarComprobante() {
+        Scanner scanner = new Scanner(System.in);
+        List<Cita> citasAtendidas = new ArrayList<>();
+        for(Cita cita : listaCitas) {
+            if(cita.getEstadoCita() == EstadoCita.ATENDIDA) {
+                citasAtendidas.add(cita);
+            }
+        }
+
+        if(citasAtendidas.isEmpty()) {
+            System.out.println("No hay citas atendidas para generar comprobantes");
+            return;
+        }
+
+        System.out.println("Citas atendidas");
+        for(int i = 0; i < citasAtendidas.size(); i++) {
+            Cita cita = citasAtendidas.get(i);
+            System.out.println((i + 1) + ". Mascota: " + cita.getMascota().getDatosMascota() +
+                    "Veterinario:\n" + cita.getVeterinario().getDatosPersonales() +
+                    "Fecha: " + cita.getFechaHora());
+        }
+
+        System.out.print("Ingrese el número de cita para generar comprobante: ");
+        int indiceCita = scanner.nextInt() - 1;
+
+        if(indiceCita < 0 || indiceCita >= citasAtendidas.size()) {
+            System.out.println("Número de cita no válida");
+            return;
+        }
+
+        Cita citaSeleccionada = citasAtendidas.get(indiceCita);
+
+        double costoTotal = citaSeleccionada.getServicio().calcularCosto();
+        System.out.println("\nClínica veterinaria \"PetCare\"");
+        System.out.println("Comprobante de pago");
+        System.out.println("Fecha y hora de cita: " + citaSeleccionada.getFechaHora());
+        System.out.println("Consultorio: " + citaSeleccionada.getConsultorio().getNumero());
+        System.out.println("Datos de la mascota:\n" + citaSeleccionada.getMascota().getDatosMascota());
+        System.out.println("Datos del veterinario:\n" + citaSeleccionada.getVeterinario().getDatosPersonales());
+        System.out.println("Costo total: $" + costoTotal);
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Consultorio consultorio1 = new Consultorio(1);
@@ -358,7 +400,11 @@ public class Main {
                     }
                     break;
                 case 5:
-                    System.out.println("5. Generar el comprobante de una cita atendida.");
+                    if(listaCitas.isEmpty()) {
+                        System.out.println("Marque una cita atendida para utilizar esta función");
+                    } else {
+                        generarComprobante();
+                    }
                     break;
                 case 6:
                     System.out.println("6. Consultar el historial clínico de una mascota.");

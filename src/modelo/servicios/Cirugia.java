@@ -28,14 +28,6 @@ public class Cirugia implements Servicio {
     }
 
     public double calcularCosto() {
-        double costoTotal = 0;
-        costoTotal = this.tarifaPorHora * this.nivelComplejidad * this.horasQuirofano;
-
-        System.out.println("Tarifa por hora: " + this.tarifaPorHora + ".\n" +
-                            "Nivel de complejidad: " + this.nivelComplejidad + ".\n" +
-                            "Horas de quirófano: " + this.horasQuirofano + ".\n" +
-                            "Costo total: " + costoTotal + ".");
-        return costoTotal;
+        return this.tarifaPorHora * this.nivelComplejidad * this.horasQuirofano;
     }
-
 }

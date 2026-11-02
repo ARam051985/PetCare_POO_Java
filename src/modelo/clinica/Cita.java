@@ -25,9 +25,10 @@ public class Cita {
         setEstadoCita(estadoCita);
     }
 
-    public Mascota getMascota() {return mascota;}
-    public Veterinario getVeterinario() {return veterinario;}
-    public Consultorio getConsultorio() {return consultorio;}
+    public Mascota getMascota() {return this.mascota;}
+    public Veterinario getVeterinario() {return this.veterinario;}
+    public Consultorio getConsultorio() {return this.consultorio;}
+    public Servicio getServicio() {return this.servicio;}
     public LocalDateTime getFechaHora() {return this.fechaHora;}
     public EstadoCita getEstadoCita() {return this.estadoCita;}
 
