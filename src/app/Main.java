@@ -439,6 +439,27 @@ public class Main {
         System.out.println("Total cobrado: $" + totalAcumulado);
     }
 
+    public static void bajaMascota() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Lista de mascotas registradas");
+
+        for(int i = 0; i < listaMascotas.size(); i++) {
+            System.out.println((i + 1) + ". "  + listaMascotas.get(i).getDatosMascota());
+        }
+        System.out.print("Ingrese el número de la mascota a dar de baja: ");
+        int indiceMascota = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if(indiceMascota < 0 || indiceMascota >= listaMascotas.size()) {
+            System.out.println("Número de mascota no válido");
+            return;
+        }
+
+        Mascota mascotaDadaBaja = listaMascotas.get(indiceMascota);
+        listaMascotas.remove(mascotaDadaBaja);
+        listaCitas.removeIf(cita -> cita.getMascota().equals(mascotaDadaBaja));
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Consultorio consultorio1 = new Consultorio(1);
@@ -511,7 +532,11 @@ public class Main {
                     }
                     break;
                 case 9:
-                    System.out.println("9. Dar de baja una mascota.");
+                    if(listaMascotas.isEmpty()) {
+                        System.out.println("Registre una mascota para utilizar esta opción");
+                    } else {
+                        bajaMascota();
+                    }
                     break;
                 case 10:
                     System.out.println("Saliste del programa...");

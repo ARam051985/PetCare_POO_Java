@@ -7,8 +7,7 @@ public class Cirugia implements Servicio {
 
     public void setTarifaPorHora(double tarifaPorHora) {
         if(tarifaPorHora <= 0) {
-            System.out.println("Tarifa por hora no válida");
-            return;
+            throw new IllegalArgumentException("Tarifa por hora no válida");
         }
         this.tarifaPorHora = tarifaPorHora;
     }
