@@ -20,3 +20,8 @@ Un servicio sigue existiendo si se elimina la cita, y viceversa.
 
 ## Veterinario - Cita → Asociación
 Un veterinario sigue existiendo si se elimina la cita, y viceversa.
+
+## Cita - Consultorio → Asociación
+Una cita requiere un consultorio asignado para llevarse a cabo.
+Si se elimina un consultorio, la cita puede seguir existiendo de
+manera independiente, y viceversa.

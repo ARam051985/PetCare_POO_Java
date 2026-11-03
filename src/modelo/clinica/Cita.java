@@ -8,12 +8,12 @@ import modelo.servicios.Servicio;
 import java.time.LocalDateTime;
 
 public class Cita {
-    private LocalDateTime fechaHora;
-    private EstadoCita estadoCita;
     private Mascota mascota;
     private Veterinario veterinario;
     private Consultorio consultorio;
     private Servicio servicio;
+    private LocalDateTime fechaHora;
+    private EstadoCita estadoCita;
 
     public Cita(Mascota mascota, Veterinario veterinario, Consultorio consultorio,
                 Servicio servicio, LocalDateTime fechaHora, EstadoCita estadoCita) {
