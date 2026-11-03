@@ -30,4 +30,12 @@ public class Recepcionista extends Persona {
         }
         this.turno = turno;
     }
+
+    @Override
+    public String toString() {
+        return "Recepcionista [" +
+                "Datos: " + getDatosPersonales() +
+                ", Turno: " + turno +
+                ']';
+    }
 }

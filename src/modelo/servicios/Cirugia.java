@@ -40,4 +40,14 @@ public class Cirugia implements Servicio {
     public double calcularCosto() {
         return this.tarifaPorHora * this.nivelComplejidad * this.horasQuirofano;
     }
+
+    @Override
+    public String toString() {
+        return "Cirugía [" +
+                "Tarifa por hora: " + tarifaPorHora +
+                ", Nivel de complejidad: " + nivelComplejidad +
+                ", Horas de quirófano: " + horasQuirofano +
+                ", Costo total: " + calcularCosto() +
+                ']';
+    }
 }

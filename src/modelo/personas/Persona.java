@@ -65,4 +65,13 @@ public abstract class Persona {
         }
         this.correo = correo;
     }
+
+    @Override
+    public String toString() {
+        return "Persona [" +
+                "Nombre: " + nombre + " " + apellido +
+                ", Teléfono: " + telefono +
+                ", Correo: " + correo +
+                ']';
+    }
 }

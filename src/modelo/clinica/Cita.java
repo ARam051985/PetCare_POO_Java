@@ -98,4 +98,15 @@ public class Cita {
         }
         this.estadoCita = estadoCita;
     }
+
+    @Override
+    public String toString() {
+        return "Cita [" +
+                "Fecha y Hora: " + fechaHora +
+                ", Estado: " + estadoCita +
+                ", Mascota: " + (mascota != null ? mascota.getDatosMascota() : "N/A") +
+                ", Veterinario: " + (veterinario != null ? veterinario.getDatosPersonales() : "N/A") +
+                ", Consultorio: " + (consultorio != null ? consultorio.getNumero() : "N/A") +
+                ']';
+    }
 }

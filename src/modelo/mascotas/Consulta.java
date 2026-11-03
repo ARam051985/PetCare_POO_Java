@@ -17,4 +17,13 @@ public class Consulta {
                 "\nDiagnóstico: " + diagnostico + "." +
                 "\nTipo de tratamiento: " + tipoTratamiento + ".";
     }
+
+    @Override
+    public String toString() {
+        return "Consulta [" +
+                "Fecha y Hora: " + fechaHora +
+                ", Diagnóstico: " + diagnostico +
+                ", Tratamiento: " + tipoTratamiento +
+                ']';
+    }
 }

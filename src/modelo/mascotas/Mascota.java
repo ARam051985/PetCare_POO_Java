@@ -68,4 +68,14 @@ public abstract class Mascota {
 
     /** Método abstracto para que cada tipo de mascota emita su sonido característico. */
     public abstract void emitirSonido();
+
+    @Override
+    public String toString() {
+        return "Mascota [" +
+                "Nombre: " + nombre +
+                ", Edad: " + edad + " años" +
+                ", Peso: " + peso + " kg" +
+                ", Dueño: " + dueno +
+                ']';
+    }
 }

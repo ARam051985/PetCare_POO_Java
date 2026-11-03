@@ -29,4 +29,9 @@ public class Consultorio {
         }
         this.numero = numero;
     }
+
+    @Override
+    public String toString() {
+        return "Consultorio #: " + numero;
+    }
 }

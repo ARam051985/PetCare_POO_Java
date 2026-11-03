@@ -18,4 +18,11 @@ public class HistorialClinico {
     public List<Consulta> mostrarHistorialConsultas() {
         return consultas;
     }
+
+    @Override
+    public String toString() {
+        return "Historial clínico [" +
+                "Consultas registradas: " + consultas +
+                ']';
+    }
 }

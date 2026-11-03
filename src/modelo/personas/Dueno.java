@@ -30,4 +30,12 @@ public class Dueno extends Persona {
         }
         this.direccion = direccion;
     }
+
+    @Override
+    public String toString() {
+        return "Dueño [" +
+                "Datos: " + getDatosPersonales() +
+                ", Dirección: " + direccion +
+                ']';
+    }
 }

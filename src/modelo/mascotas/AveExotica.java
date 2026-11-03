@@ -37,4 +37,12 @@ public class AveExotica extends Mascota {
     public void emitirSonido() {
         System.out.println("El ave está cantando\n");
     }
+
+    @Override
+    public String toString() {
+        return "Ave exotica [" +
+                "Datos: " + getDatosMascota() +
+                ", Longitud de alas: " + longitudAlas +
+                ']';
+    }
 }

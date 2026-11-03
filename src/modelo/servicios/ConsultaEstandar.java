@@ -12,4 +12,11 @@ public class ConsultaEstandar extends ConsultaGeneral {
     public ConsultaEstandar() {
         setTarifaBase(49.99);
     }
+
+    @Override
+    public String toString() {
+        return "Consulta estándar [" +
+                "Tarifa base: " + tarifaBase +
+                ']';
+    }
 }

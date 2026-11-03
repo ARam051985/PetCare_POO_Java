@@ -19,4 +19,11 @@ public abstract class ConsultaGeneral implements Servicio {
     public double calcularCosto() {
         return this.tarifaBase;
     }
+
+    @Override
+    public String toString() {
+        return "Consulta general [" +
+                "Tarifa base: " + tarifaBase +
+                ']';
+    }
 }

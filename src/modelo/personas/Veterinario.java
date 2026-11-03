@@ -45,4 +45,13 @@ public class Veterinario extends Persona {
         }
         this.especialidad = especialidad;
     }
+
+    @Override
+    public String toString() {
+        return "Veterinario [" +
+                "Datos: " + getDatosPersonales() +
+                ", Cédula profesional: " + cedulaProfesional +
+                ", Especialidad: " + especialidad +
+                ']';
+    }
 }

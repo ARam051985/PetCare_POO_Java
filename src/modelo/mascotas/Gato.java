@@ -35,4 +35,12 @@ public class Gato extends Mascota {
     public void emitirSonido() {
         System.out.println("El gato está maullando\n");
     }
+
+    @Override
+    public String toString() {
+        return "Gato [" +
+                "Datos: " + getDatosMascota() +
+                ", ¿Es doméstico?: " + esDomestico +
+                ']';
+    }
 }

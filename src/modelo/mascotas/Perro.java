@@ -48,4 +48,13 @@ public class Perro extends Mascota {
     public void emitirSonido() {
         System.out.println("El perro está ladrando\n");
     }
+
+    @Override
+    public String toString() {
+        return "Perro [" +
+                "Datos: " + getDatosMascota() +
+                ", Raza: " + raza +
+                ", Nivel de energía: " + nivelEnergia +
+                ']';
+    }
 }

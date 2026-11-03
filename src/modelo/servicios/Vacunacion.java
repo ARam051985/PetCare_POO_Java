@@ -28,4 +28,13 @@ public class Vacunacion extends ConsultaGeneral implements Servicio {
     public double calcularCosto() {
         return ConsultaGeneral.tarifaBase + costoVacuna;
     }
+
+    @Override
+    public String toString() {
+        return "Vacunación [" +
+                "Costo de vacuna: " + costoVacuna +
+                ", Tarifa base: " + tarifaBase +
+                ", Costo total: " + calcularCosto() +
+                ']';
+    }
 }
